@@ -17,15 +17,20 @@ from django.db.models.signals import post_save, pre_delete
 from django.dispatch.dispatcher import receiver
 from django.forms.utils import flatatt
 from django.urls import reverse
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from enumchoicefield import ChoiceEnum, EnumChoiceField
 from taggit.managers import TaggableManager
-from wagtail.admin.utils import get_object_usage
+from six import python_2_unicode_compatible
 from wagtail.core.models import CollectionMember
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
+
+import wagtail
+if wagtail.__version__ >= '2.7':
+    from wagtail.admin.models import get_object_usage
+else:
+    from wagtail.admin.utils import get_object_usage
 
 from wagtailvideos import ffmpeg
 
