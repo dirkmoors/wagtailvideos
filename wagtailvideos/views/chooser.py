@@ -3,7 +3,14 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.utils import PermissionPolicyChecker, popular_tags_for_model
+
+import wagtail
+if wagtail.__version__ >= '2.7':
+    from wagtail.admin.models import popular_tags_for_model
+    from wagtail.admin.auth import PermissionPolicyChecker
+else:
+    from wagtail.admin.utils import PermissionPolicyChecker, popular_tags_for_model
+
 from wagtail.core.models import Collection
 from wagtail.images.views.chooser import get_chooser_js_data
 from wagtail.search import index as search_index

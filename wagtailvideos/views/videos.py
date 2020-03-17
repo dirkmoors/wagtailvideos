@@ -6,9 +6,15 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
-from wagtail.admin.utils import PermissionPolicyChecker, popular_tags_for_model
 from wagtail.core.models import Collection
 from wagtail.search.backends import get_search_backends
+
+import wagtail
+if wagtail.__version__ >= '2.7':
+    from wagtail.admin.models import popular_tags_for_model
+    from wagtail.admin.auth import PermissionPolicyChecker
+else:
+    from wagtail.admin.utils import PermissionPolicyChecker, popular_tags_for_model
 
 from wagtailvideos import ffmpeg
 from wagtailvideos.forms import VideoTranscodeAdminForm, get_video_form

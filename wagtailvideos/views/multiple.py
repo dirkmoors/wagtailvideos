@@ -4,8 +4,13 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
-from wagtail.admin.utils import PermissionPolicyChecker
 from wagtail.search.backends import get_search_backends
+
+import wagtail
+if wagtail.__version__ >= '2.7':
+    from wagtail.admin.auth import PermissionPolicyChecker
+else:
+    from wagtail.admin.utils import PermissionPolicyChecker
 
 from wagtailvideos.forms import get_video_form
 from wagtailvideos.models import Video
